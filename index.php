@@ -11,7 +11,7 @@
     <?php include("inc/header.inc.php"); ?>
   </div>
   <div id="content">
-    <div id = "nav">
+    <div id="nav">
       <?php include("inc/nav.inc.php"); ?>
     </div>
     <div id="main">
@@ -24,6 +24,9 @@
           include($nextpage);
         } // end if/else
        ?>
+    </div>
+    <div id="news">
+      <?php include("inc/news.inc.php") ?>
     </div>
   </div>
   <div id="footer">
