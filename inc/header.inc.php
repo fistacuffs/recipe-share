@@ -2,6 +2,6 @@
 <h4>
   <em>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    "nothing like home cookin'"
+    "ain't nothin' like home cookin'"
   </em>
 </h4>
