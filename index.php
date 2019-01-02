@@ -16,11 +16,11 @@
     </div>
     <div id="main">
       <?php
-        if (!isset($_REQUEST['content']))
-          include("main.inc.php");
-        else {
+        if (!isset($_REQUEST['content'])) {
+          include("inc/main.inc.php");
+        } else {
           $content = $_REQUEST['content'];
-          $nextpage = $content . ".inc.php";
+          $nextpage = "inc/" . $content . ".inc.php";
           include($nextpage);
         } // end if/else
        ?>
