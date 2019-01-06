@@ -32,7 +32,7 @@
   echo "$directions<br><br>\n";
 
   // SQL query for number of comments for this recipeid
-  $query = "SELECT COUNT(commentid) "
+  $query = "SELECT COUNT(commentid) AS numcomments "
          . "FROM comments "
          . "WHERE recipeid = $recipeid";
   $result = $con->query($query);
@@ -40,7 +40,7 @@
   /* $result = mysql_query($query);
   $row = mysql_fetch_array($result); */
 
-  if ($row[0] == 0) {
+  if ($row['numcomments'] == 0) {
     echo "No comments posted yet.&nbsp;&nbsp;\n";
     echo "<a href=\"index.php?content=newcomment&id=$recipeid\"> "
        . "Add a comment</a>\n";
@@ -49,7 +49,7 @@
        . "Print recipe</a>\n";
     echo "<hr>\n";
   } else {
-    echo $row[0] . "\n";
+    echo $row['numcomments'] . "\n";
     echo "&nbsp;comments posted.&nbsp;&nbsp;\n";
     echo "<a href=\"index.php?content=newcomment&id=$recipeid\">"
        . "Add a comment</a>\n";
