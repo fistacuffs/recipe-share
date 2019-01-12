@@ -3,6 +3,8 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="styles/style.css" />
+  <link rel="stylesheet" media="print" type="text/css"
+        href="styles/print.css" />
   <title>The Recipe Center</title>
 </head>
 

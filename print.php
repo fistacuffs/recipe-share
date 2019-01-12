@@ -1,6 +1,11 @@
 <!doctype html>
 <html xmlns="http://wwww.w3.org/1999/xhtml">
 
+<head>
+  <link rel="stylesheet" type="text/css" href="styles/print.css" />
+  <title>The Recipe Center</title>
+</head>
+
 <body>
   <?php
     try {
