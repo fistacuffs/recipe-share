@@ -37,10 +37,11 @@
          . "WHERE recipeid = $recipeid";
   $result = $con->query($query);
   $row = $result->fetch_assoc();
+  $totrecords = $row['numcomments'];
   /* $result = mysql_query($query);
   $row = mysql_fetch_array($result); */
 
-  if ($row['numcomments'] == 0) {
+  if ($totrecords == 0) {
     echo "No comments posted yet.&nbsp;&nbsp;\n";
     echo "<a href=\"index.php?content=newcomment&id=$recipeid\"> "
        . "Add a comment</a>\n";
@@ -49,17 +50,29 @@
        . "Print recipe</a>\n";
     echo "<hr>\n";
   } else {
-    echo $row['numcomments'] . "\n";
+    // get comments page number from request array
+    if (!isset($_GET['page']))
+      $thispage = 1;
+    else
+      $thispage = $_GET['page'];
+
+    // calc pages
+    $recordsperpage = 5;
+    $offset = ($thispage - 1) * $recordsperpage;
+    $totpages = ceil($totrecords / $recordsperpage);
+
+    echo $totrecords . "\n";
     echo "&nbsp;comments posted.&nbsp;&nbsp;\n";
     echo "<a href=\"index.php?content=newcomment&id=$recipeid\">"
        . "Add a comment</a>\n";
     echo "<hr>\n";
     echo "<h2>Comments:</h2>\n";
-    // SQL query for comments on this recipeid
+    // SQL query for this page of comments on this recipeid
     $query = "SELECT date, poster, comment "
            . "FROM comments "
            . "WHERE recipeid = $recipeid "
-           . "ORDER BY commentid DESC";
+           . "ORDER BY commentid DESC "
+           . "LIMIT $offset, $recordsperpage";
     $result = $con->query($query);
     /* $result = mysql_query($query) or die ('Could not retrieve comments'); */
     while ($row = $result->fetch_assoc()) {
@@ -71,5 +84,37 @@
       echo "$comment\n";
       echo "<br><br>\n";
     } // end while
+
+    // comment page navigation
+    // previous page link
+    if ($thispage > 1) {
+      $page = $thispage - 1;
+      $prevpage = "<a href=\"index.php?content=showrecipe"
+                . "&id=$recipeid&page=$page\">Previous</a>";
+    } else {
+      $prevpage = "";
+    } // end if/else
+
+    // individual page links if multiple pages
+    $bar = "";
+    if ($totpages > 1) {
+      for ($page = 1; $page <= $totpages; $page++) {
+        if ($page == $thispage)
+          $bar .= "$page";
+        else
+          $bar .= " <a href=\"index.php?content=showrecipe"
+                . "&id=$recipeid&page=$page\">$page</a> ";
+      } // end for
+    } // end if
+
+    // next page link
+    if ($thispage < $totpages) {
+      $page = $thispage + 1;
+      $nextpage = " <a href=\"index.php?content=showrecipe"
+                . "&id=$recipeid&page=$page\">Next</a>";
+    } else
+      $nextpage = "";
+
+    echo "GoTo: " . $prevpage . $bar . $nextpage;
   } // end if/else
  ?>
